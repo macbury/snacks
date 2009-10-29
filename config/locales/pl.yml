@@ -74,7 +74,7 @@ pl:
         other: "{{count}} minut"
       about_x_hours:
         one:   "około godziny"
-        other: "about {{count}} godzin"
+        other: "około {{count}} godzin"
       x_days:
         one:   "1 dzień"
         other: "{{count}} dni"
@@ -92,8 +92,18 @@ pl:
         one:   "ponad rok"
         few:   "ponad {{count}} lata"
         other: "ponad {{count}} lat"
-
+  
   activerecord:
+    models:
+      user: "uzytkownik"
+    attributes:
+      user:
+        password: "hasło"
+      recipe:
+        title: "Nazwa"
+        instructions: "Sposób przyrządzenia"
+        ingredient_list: "Składniki"
+        
     errors:
       template:
         header:
@@ -123,5 +133,6 @@ pl:
       
   support:
     array:
-      sentence_connector: "i"
+      sentence_connector: " i "
+      two_words_connector: " i "
       skip_last_comma: true

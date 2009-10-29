@@ -1,0 +1,15 @@
+<h2><%= @recipe.title %></h2>
+
+<h3>Składniki</h3>
+<ol>
+	<% for ingredient in @recipe.tags %>
+	<li><%= ingredient.name %></li>
+	<% end %>
+</ol>
+
+<h3>Sposób przyrządzenia</h3>
+
+<%= simple_format @recipe.instructions %>
+
+<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= link_to 'Back', recipes_path %>

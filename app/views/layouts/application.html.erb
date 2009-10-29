@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+   
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><%= title %></title>
+	
+	<%= stylesheet_link_tag 'ui', 'formtastic', 'formtastic_changes', :cache => "production" %>
+	<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+	<%= javascript_include_tag 'jquery.min.js', 'rails', 'jquery-ui.min.js', 'application.js', :cache => "production" %>
+	
+</head>
+<body>
+	<div class="header">
+		<h1><%= link_to "Przekąska", root_path %></h1>
+
+		<div class="side">
+			<%= link_to "Przepisy", recipes_path %>
+			<%= link_to "Składniki", ingredients_path %>
+			<% if logged_in? %>
+				<%= link_to "Dodaj przepis", new_recipe_path %>
+				<%= link_to "Wyloguj", logout_path %>
+			<% else %>
+				<%= link_to "Rejestracja", register_path %>
+				<%= link_to "Logowanie", login_path %>
+			<% end %>
+
+			<% form_tag recipes_path, :method => :get do %>
+				<%= text_field_tag 'ingredients', params[:ingredients] %>
+			<% end %>
+		</div>
+	</div
+	
+	<div class="wrapper">
+		<%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :class => "flash_#{name}" %>
+    <%- end -%>
+		
+		<div class="sidebar">
+			<% unless yield :sidebar %>
+			<script type="text/javascript" id="AdTaily_Widget" key="aEHSxtrAsldroP1" src="http://static.adtaily.com/widget.js"></script>
+			    <noscript>Reklamy na tej stronie sprzedawane są przez widget z AdTaily.com (PLBLOADTAILY0001)</noscript>
+			<% else %>
+				<%= yield :sidebar %>
+			<% end %>
+		</div>
+		
+		<!--
+		<div class="breadcrumb">
+			<a href="/all">Wszystkie</a>
+			<a href="#">Internet</a>
+			<a href="http://antyweb.pl">AntyWeb.pl</a>
+		</div>-->
+		
+		<div class="content">			
+			<%= yield %>
+		</div>
+		
+		<%= yield :pagination %>
+		
+		<div class="clear"></div>
+		
+		<div class="footer">
+			HTS &copy; 2009
+			<span class="right">
+				<%= link_to "Strona główna", root_path %> | 
+				<%= link_to "Rejestracja", register_path %> | 
+				<%= link_to "Logowanie", login_path %>
+			</span>
+		</div>
+	</div>
+
+</body>
+</html>

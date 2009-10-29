@@ -1,4 +1,7 @@
 class UserSessionsController < ApplicationController
+  
+  title "Logowanie"
+  
   def new
     @user_session = UserSession.new
   end
@@ -6,9 +9,10 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Successfully created user session."
-      redirect_to root_url
+      flash[:notice] = "Zalogowano poprawnie w serwisie"
+      redirect_back_or_default
     else
+      flash[:error] = "Nieprawidłowy login lub hasło"
       render :action => 'new'
     end
   end

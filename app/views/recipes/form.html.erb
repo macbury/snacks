@@ -1,0 +1,26 @@
+<fieldset>
+	<legend><%= @recipe.new_record? ? 'Nowy przepis na przekąske' : 'Edycja przekąski' %></legend>
+
+<% semantic_form_for @recipe do |f| %>
+	
+	<% f.inputs do %>
+		<%= f.input :title %>
+		<%= f.input :instructions %>
+		<%= f.input :ingredient_list, :as => :string, :hint => "Składniki oddzielaj przecinkiem(np. pomidor, cebula, ser, czosnek)" %>
+	<% end %>
+  
+	<div style="text-align: right">
+		<% unless @recipe.new_record? %>
+		<div class="button">
+			<%= link_to 'Usuń przepis', @recipe, :method => :delete, :confirm => "Czy na pewno chcesz usunąć ten przepis na przekąske?" %>
+		</div>
+		<% end %>
+		<div class="button">
+			<%= link_to 'Anuluj', recipes_path %>
+		</div>
+		<div class="button special">
+			<%= f.submit @recipe.new_record? ? 'Dodaj przepis' : 'Zapisz zmiany' %>
+		</div>
+	</div>
+<% end %>
+</fieldset>

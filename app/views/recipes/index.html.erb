@@ -1,0 +1,66 @@
+<% content_for :sidebar do %>
+<h3>
+	Sortowanie
+</h3>
+
+<ul id="ulubione-przepisy">
+	<li>
+		<input type="radio" />
+		<a href="#">Nazwa</a>
+	</li>
+	
+	<li>
+		<input type="radio" />
+		<a href="#">Data dodania</a>
+	</li>
+	
+	<li>
+		<input type="radio" />
+		<a href="#">Ocena</a>
+	</li>
+	<% if @tags %>
+	<li>
+		<input type="radio" />
+		<a href="#">Trafność</a>
+	</li>
+	<% end %>
+</ul>
+
+<% if @tags %>
+<h3>
+	Trafność
+</h3>
+
+<ul>
+	<li>
+		<input type="radio" />
+		<a href="#">Duża</a>
+	</li>
+	<li>
+		<input type="radio" />
+		<a href="#">Średnia</a>
+	</li>
+	<li>
+		<input type="radio" />
+		<a href="#">Mała</a>
+	</li>
+	<li>
+		<input type="radio" />
+		<a href="#">Bardzo Mała</a>
+	</li>
+</ul>
+<% end %>
+
+<% end %>
+
+<% if @recipes.empty? %>
+	<p class="info">
+		<%= @tags.size > 2 ? "Musisz podac min. 2 składniki ": "Brak wyników" %>
+	</p>
+<% else %>
+	<%= render :partial => @recipes %>
+<% end %>
+
+<% content_for :pagination do %>
+	<%= will_paginate @recipes, :previous_label => '&laquo; Wstecz', :next_label => 'Dalej &raquo;' %>
+<% end %>

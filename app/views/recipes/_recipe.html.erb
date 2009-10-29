@@ -1,0 +1,8 @@
+<div class="item">
+	<a class="vote" href="#">0</a>
+	<h2><%= link_to recipe.title, recipe %></h2>
+	<small>dodano <%= distance_of_time_in_words_to_now recipe.created_at %> temu przez <b><%= recipe.user.login %></b>. <b>Składniki</b>: <%= render_ingredients_for_recipe(recipe) %></small>
+	<p>
+		<%= truncate recipe.instructions, :length => 254 %>
+	</p>
+</div>
