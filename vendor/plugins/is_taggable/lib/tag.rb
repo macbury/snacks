@@ -4,6 +4,7 @@ class Tag < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :kind
   has_permalink :name, :update => true
+  xss_terminate
   
   named_scope :with_name_like_and_kind, lambda { |name, kind| { :conditions => ["name like ? AND kind = ?", name, kind] } }
   named_scope :of_kind,                 lambda { |kind| { :conditions => {:kind => kind} } }

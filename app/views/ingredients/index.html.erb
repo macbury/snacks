@@ -1,5 +1,5 @@
 <p class="tags">
 	<% tag_cloud @ingredients do |tag, css| %>
-		<%= link_to tag.name, recipes_path(:ingredients => tag.name), :class => css %>
+		<%= link_to h(tag.name), recipes_path(:ingredient => tag.name), :class => css %>
 	<% end %>
 </p>

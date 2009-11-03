@@ -1,7 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :ingredients
-  map.resources :recipes
-
+  map.with_options :controller => 'recipes', :page => /[0-9]/ do |recipes|
+    recipes.connect '/recipes/:sort/:page/:ingredients/', :action => 'index'
+    recipes.connect '/recipes/:sort/:page/', :action => 'index'
+    recipes.connect '/recipes/:page/', :action => 'index'
+    recipes.connect '/my/:sort/:page/', :action => 'index'
+    recipes.connect '/my/:page/', :action => 'index'
+  end
+  
+  map.resources :ingredients, :collection => { :auto_complete => :any }
+  map.resources :recipes, :collection => { :my => :get, :favorites => :get, :feed => :any }, :has_many =>  :comments 
+  map.resources :comments
   map.resources :user_sessions
   map.resources :users
   

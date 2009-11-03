@@ -5,8 +5,8 @@
 	
 	<% f.inputs do %>
 		<%= f.input :title %>
-		<%= f.input :instructions %>
 		<%= f.input :ingredient_list, :as => :string, :hint => "Składniki oddzielaj przecinkiem(np. pomidor, cebula, ser, czosnek)" %>
+		<%= f.input :instructions %>
 	<% end %>
   
 	<div style="text-align: right">
@@ -15,8 +15,8 @@
 			<%= link_to 'Usuń przepis', @recipe, :method => :delete, :confirm => "Czy na pewno chcesz usunąć ten przepis na przekąske?" %>
 		</div>
 		<% end %>
-		<div class="button">
-			<%= link_to 'Anuluj', recipes_path %>
+		<div class="button white">
+			<%= link_to 'Anuluj', @recipe.new_record? ? recipes_path : @recipe %>
 		</div>
 		<div class="button special">
 			<%= f.submit @recipe.new_record? ? 'Dodaj przepis' : 'Zapisz zmiany' %>

@@ -98,11 +98,14 @@ pl:
       user: "uzytkownik"
     attributes:
       user:
-        password: "hasło"
+        password: "Hasło"
+        password_confirmation: "Powtórz hasło"
       recipe:
         title: "Nazwa"
         instructions: "Sposób przyrządzenia"
         ingredient_list: "Składniki"
+      comment:
+        body: "Treść"
         
     errors:
       template:

@@ -1,0 +1,9 @@
+one:
+  body: MyText
+  user_id: 1
+  recipe_id: 1
+
+two:
+  body: MyText
+  user_id: 1
+  recipe_id: 1

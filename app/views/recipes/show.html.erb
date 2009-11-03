@@ -1,15 +1,102 @@
-<h2><%= @recipe.title %></h2>
+<fieldset>
+	<legend><%= @recipe.title %></legend>
 
-<h3>Składniki</h3>
-<ol>
-	<% for ingredient in @recipe.tags %>
-	<li><%= ingredient.name %></li>
+	<% if own?(@recipe) %>
+	<div class="popup">
+		<a href="#">Edytuj</a>
+		<ul>
+			<li>
+				<%= link_to 'Edytuj przepis', edit_recipe_path(@recipe) %>
+			</li>
+			<li>
+				<%= link_to 'Usuń przepis', @recipe, :method => :delete, :confirm => "Czy na pewno chcesz usunąć ten przepis na przekąske?" %>
+			</li>
+		</ul>
+	</div>
 	<% end %>
-</ol>
+	<h3>Składniki</h3>
+	<ol>
+		<% for ingredient in @recipe.tags %>
+		<li><%= h ingredient.name %></li>
+		<% end %>
+	</ol>
 
-<h3>Sposób przyrządzenia</h3>
+	<h3>Sposób przyrządzenia</h3>
 
-<%= simple_format @recipe.instructions %>
+	<%= simple_format @recipe.instructions %>
+	
+	<h3>Dodaj do</h3>
+	<div class="share">
+		<div class="button white">
+			<a href="#">
+				<img src="/images/star_on.gif" />
+				ulubionych
+			</a>
+		</div>
+		
+		<div class="button white">
+			<%= link_to("facebook", "http://www.facebook.com/sharer.php", :name => "fb_share", :type => "icon_link") %>
+		</div>
+		<div class="button white">
+			<%= link_to(image_tag('http://a1.twimg.com/a/1256928834/images/favicon.ico')+"twitter", "http://twitter.com/home?status=#{@recipe.title}-#{recipe_url(@recipe)}") %>
+		</div>
+		<div class="button white">
+			<%= link_to(image_tag('http://static3.blip.pl/images/favicon.gif')+"blip", "http://blip.pl/dashboard?body=#{@recipe.title} - #{recipe_url(@recipe)}") %>
+		</div>
+		<div class="button white">
+			<a href="#" id="delicious">
+				<img src="http://static.delicious.com/img/delicious.small.gif"/>
+				delicious
+			</a>
+		</div>
+		<div class="button white">
+			<%= link_to(image_tag('http://flaker.pl/static/images/flaker/websites/flaker.gif')+"flaker", "http://flaker.pl/add2flaker.php?title=#{@recipe.title}") %>
+		</div>
+		<div class="button white">
+			<%= link_to(image_tag("http://static.nasza-klasa.pl/img/sledzik/widgets/mini")+'śledzik', "http://nasza-klasa.pl/sledzik?shout=#{@recipe.title}-#{recipe_url(@recipe)}") %>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+</fieldset>
 
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
-<%= link_to 'Back', recipes_path %>
+<fieldset>
+	<legend>Komentarze</legend>
+	<% if logged_in? %>
+		<% semantic_form_for [@recipe, Comment.new] do |f| %>
+			<% f.inputs do %>
+				<%= f.input :body %>
+			<% end %>
+			<div style="text-align: right">
+				<div class="button special">
+					<%= f.submit "Dodaj komentarz!" %>
+				</div>
+			</div>
+		<% end %>
+	<% else %>
+		<p>Musisz się zalogować aby móc dodawać komentarze.</p>
+	<% end %>
+	<hr />
+	<% if @comments.nil? || @comments.empty? %>
+		<p>Brak komentarzy.</p>
+	<% else %>
+		<ul class="comments">
+			<% for comment in @comments %>
+				<li>
+					<div class="avatar">
+						<%= avatar_for comment.user, 48 %>
+					</div>
+					<div class="body">
+						<span>
+							<%= content_tag :b, comment.user.login %> napisał <%= distance_of_time_in_words_to_now comment.created_at %> temu
+							<% if own? @comment %>
+								<%= link_to 'Usuń komentarz', [@recipe, comment], :class => 'delete' %>
+							<% end %>
+						</span>
+						<%= simple_format comment.body %>
+					</div>
+				</li>
+			<% end %>
+		</ul>
+	<% end %>
+</fieldset>
