@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :ingredients, :collection => { :auto_complete => :any }
-  map.resources :recipes, :collection => { :my => :get, :favorites => :get, :feed => :any }, :has_many =>  :comments 
+  map.resources :recipes, :collection => { :my => :get, :favorites => :get, :feed => :any }, :has_many => [:comments, :favorites]
   map.resources :comments
   map.resources :user_sessions
   map.resources :users

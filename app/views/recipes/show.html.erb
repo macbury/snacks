@@ -5,6 +5,7 @@
 	<div class="popup">
 		<a href="#">Edytuj</a>
 		<ul>
+			<%= content_tag(:li, link_to('Usuń z ulubionych', [@recipe, self.current_user.favorite?(@recipe)], :method => :delete)) if self.current_user.favorite?(@recipe) %>
 			<li>
 				<%= link_to 'Edytuj przepis', edit_recipe_path(@recipe) %>
 			</li>
@@ -27,13 +28,11 @@
 	
 	<h3>Dodaj do</h3>
 	<div class="share">
+		<% unless self.current_user.favorite?(@recipe) %>
 		<div class="button white">
-			<a href="#">
-				<img src="/images/star_on.gif" />
-				ulubionych
-			</a>
+			<%= link_to(image_tag('/images/star_on.gif') + 'ulubionych', [@recipe, Favorite.new], :method => :post) %>
 		</div>
-		
+		<% end %>
 		<div class="button white">
 			<%= link_to("facebook", "http://www.facebook.com/sharer.php", :name => "fb_share", :type => "icon_link") %>
 		</div>

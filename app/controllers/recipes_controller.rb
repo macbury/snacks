@@ -32,15 +32,27 @@ class RecipesController < ApplicationController
     end
   end
   
-  def my
-    add_breadcrumb 'Moje przepisy'
-    @query.user_id_is(self.current_user.id)
+  def favorites
+    add_breadcrumb 'Moje ulubione przepisy'
     
-    @recipes = @query.paginate( :select => @select,
+    @recipes = self.current_user.favorites_recipes.paginate(
                                 :include => [:user, :tags],
                                 :per_page => PER_PAGE, 
-                                :page => params[:page], 
-                                :group => @group,
+                                :page => params[:page],
+                                :order => get_sort )
+    
+    respond_to do |format|
+      format.html { render :action => "index" }
+      format.xml  { render :xml => @recipes }
+    end
+  end
+  
+  def my
+    add_breadcrumb 'Moje przepisy' 
+    @recipes = self.current_user.recipes.paginate(
+                                :include => [:user, :tags],
+                                :per_page => PER_PAGE, 
+                                :page => params[:page],
                                 :order => get_sort )
 
     respond_to do |format|
@@ -170,7 +182,7 @@ class RecipesController < ApplicationController
 
       case params[:sort]
         when 'name' : sortSQL = 'recipes.title ASC'
-        when 'rated': sortSQL = 'recipes.created_at DESC' #tutaj trzeba walnąć poprawione według oceny
+        when 'rated': sortSQL = 'recipes.favorites_count DESC' 
         when 'date': sortSQL = 'recipes.created_at DESC'
         when 'random': sortSQL = 'RAND()'
         when 'revelance': sortSQL = 'tag_total - count(taggings.taggable_id), tag_count ASC'

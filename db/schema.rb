@@ -9,10 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091101183631) do
+ActiveRecord::Schema.define(:version => 20091103125621) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
+    t.integer  "user_id"
+    t.integer  "recipe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "favorites", :force => true do |t|
     t.integer  "user_id"
     t.integer  "recipe_id"
     t.datetime "created_at"
@@ -26,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20091101183631) do
     t.string   "permalink"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "favorites_count", :default => 0
   end
 
   create_table "taggings", :force => true do |t|

@@ -31,7 +31,6 @@ pl:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-
   date:
     formats:
       default: "%Y-%m-%d"
@@ -44,7 +43,6 @@ pl:
     month_names: [~, Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień]
     abbr_month_names: [~, sty, lut, mar, kwi, maj, cze, lip, sie, wrz, paź, lis, gru]
     order: [ :year, :month, :day ]
-
   time:
     formats:
       default: "%a, %d %b %Y, %H:%M:%S %z"
@@ -52,7 +50,6 @@ pl:
       long: "%d %B %Y, %H:%M"
     am: "przed południem"
     pm: "po południu"
-
   datetime:
     distance_in_words:
       half_a_minute: "pół minuty"
@@ -92,7 +89,6 @@ pl:
         one:   "ponad rok"
         few:   "ponad {{count}} lata"
         other: "ponad {{count}} lat"
-  
   activerecord:
     models:
       user: "uzytkownik"
@@ -106,7 +102,6 @@ pl:
         ingredient_list: "Składniki"
       comment:
         body: "Treść"
-        
     errors:
       template:
         header:
@@ -133,7 +128,6 @@ pl:
         less_than_or_equal_to: "musi być mniejsze lub równe {{count}}"
         odd: "musi być nieparzyste"
         even: "musi być parzyste"
-      
   support:
     array:
       sentence_connector: " i "

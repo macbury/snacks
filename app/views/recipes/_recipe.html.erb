@@ -1,5 +1,5 @@
 <div class="item">
-	<a class="vote" href="#">0</a>
+	<%= link_to recipe.favorites_count, '#', :class => 'vote' %>
 	<h2><%= link_to recipe.title, recipe_path(:id => recipe.permalink, :ingredients => params[:ingredients], :page => params[:page], :sort => params[:sort]) %></h2>
 	<small>dodano <%= distance_of_time_in_words_to_now recipe.created_at %> temu przez <b><%= recipe.user.login %></b>. <%= render_ingredients_for_recipe(recipe) %></small>
 	<p>

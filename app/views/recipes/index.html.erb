@@ -5,7 +5,7 @@
 <% else %>
 	<div class="sort">
 		<%= sort_tab 'Alfabetycznie', :name %>
-		<%= sort_tab 'Ocena', :rated %>
+		<%= sort_tab 'Popularność', :rated %>
 		<%= sort_tab 'Data dodania', :date %>
 		<%= sort_tab 'Losowo', :random %>
 		<%= sort_tab 'Trafność', :revelance unless @tags.nil? %>
