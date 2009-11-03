@@ -1,6 +1,6 @@
 <% if @recipes.empty? %>
 	<p class="info">
-		<%= @tags.size < 2 ? "Musisz podac min. 2 składniki ": "Brak wyników" %>
+		<%= (@tags.nil? || @tags.size > 2) ? "Brak wyników" : "Musisz podac min. 2 składniki" %>
 	</p>
 <% else %>
 	<div class="sort">
