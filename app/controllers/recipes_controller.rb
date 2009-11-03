@@ -151,9 +151,9 @@ class RecipesController < ApplicationController
     def prepare_conditions
       @query = Recipe.search
 
-      @group = 'recipes.id'
+      @group = nil #'recipes.id'
       @select = 'recipes.*'
-
+      
       if params[:ingredients] && !params[:ingredients].empty?
         @tags = params[:ingredients].split(',').map { |ingredient| ingredient.strip }
 
@@ -184,7 +184,7 @@ class RecipesController < ApplicationController
         when 'name' : sortSQL = 'recipes.title ASC'
         when 'rated': sortSQL = 'recipes.favorites_count DESC' 
         when 'date': sortSQL = 'recipes.created_at DESC'
-        when 'random': sortSQL = 'RAND()'
+        when 'random': sortSQL = 'RANDOM()'
         when 'revelance': sortSQL = 'tag_total - count(taggings.taggable_id), tag_count ASC'
         else sortSQL = @tags.nil? ? 'recipes.title ASC' : 'tag_total - count(taggings.taggable_id), tag_count ASC'
       end

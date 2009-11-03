@@ -2,10 +2,10 @@ class IngredientsController < ApplicationController
   title "chmura składników"
   
   def index
-    @ingredients = Tag.all( :select => 'tags.*, count(taggings.taggable_id) AS tag_count',
+    @ingredients = Tag.all( :select => 'DISTINCT tags.*, count(taggings.taggable_id) AS tag_count',
                             :conditions => { :kind => 'ingredient' }, 
                             :joins => [ :taggings ], 
-                            :group => 'tags.id', 
+                            :group => 'tags.id, tags.name, tags.kind, tags.permalink', 
                             :order => 'tags.name' )
   end
   
