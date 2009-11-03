@@ -189,6 +189,6 @@ class RecipesController < ApplicationController
         else sortSQL = @tags.nil? ? 'recipes.title ASC' : 'tag_total - count(taggings.taggable_id), tag_count ASC'
       end
 
-      #return sortSQL
+      return sortSQL
     end
 end
