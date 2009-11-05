@@ -4,6 +4,7 @@ class RecipesController < ApplicationController
   add_breadcrumb 'Nowy przepis', '', :only => [:create, :new]
   
   before_filter :login_required, :except => [:show, :index, :feed]
+  before_filter :set_sort_type
   
   PER_PAGE = 10
   
@@ -27,14 +28,6 @@ class RecipesController < ApplicationController
       @query.tags_name_like_any(params[:ingredient])
     end
 
-    if params[:sort].nil?
-      @sort_type = @tags.nil? ? 'name' : 'revelance'
-    else
-      @sort_type = params[:sort]
-    end
-    
-    #, 
-    
     @recipes = @query.paginate( :select => @select, 
                                 :per_page => PER_PAGE, 
                                 :page => params[:page], 
@@ -191,5 +184,13 @@ class RecipesController < ApplicationController
       end
 
       return sortSQL
+    end
+    
+    def set_sort_type
+      if params[:sort].nil?
+        @sort_type = @tags.nil? ? 'name' : 'revelance'
+      else
+        @sort_type = params[:sort]
+      end
     end
 end
