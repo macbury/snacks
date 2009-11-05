@@ -18,6 +18,7 @@
 		<div class="button white">
 			<%= link_to 'Anuluj', @recipe.new_record? ? recipes_path : @recipe %>
 		</div>
+
 		<div class="button special">
 			<%= f.submit @recipe.new_record? ? 'Dodaj przepis' : 'Zapisz zmiany' %>
 		</div>

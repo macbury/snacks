@@ -106,7 +106,7 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 	font-weight: bold;
 	text-decoration: none;
 	font-size: 11px;
-	display: block;
+
 	cursor: default;
 	background: transparent;
 }
@@ -125,8 +125,7 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 
 .button.special {
 	background-color: #69A74E !important;
-	background-position-x: 0px !important;
-	background-position-y: -96px !important;
+	background-position: 0px -96px !important;
 	border-color: #386F24 #236013 #16540A !important;
 	text-shadow: #4D8835 0px 1px 0px !important;
 }
@@ -139,8 +138,7 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 .button.white {
 	background-color: #DDD !important;
 	border-color: #999 !important;
-	background-position-x: 0px !important;
-	background-position-y: 0px !important;
+	background-position: 0px 0px !important;
 }
 
 .button.white > a { color: #333 !important; text-shadow: none !important; }
