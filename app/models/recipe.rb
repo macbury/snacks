@@ -15,6 +15,10 @@ class Recipe < ActiveRecord::Base
   
   attr_accessible :title, :instructions, :ingredient_list
   
+  def self.group
+    Recipe.column_names.map { |c| "recipes.#{c}" }.join(', ')
+  end
+  
   def to_param
     permalink
   end
