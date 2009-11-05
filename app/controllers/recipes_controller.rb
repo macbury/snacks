@@ -122,7 +122,7 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       if @recipe.save
-        Blip.create :body => "#przepisy #{@recipe.title} - #{recipe_url(@recipe)}"
+        Blip.create :body => "#przepisy #jedzenie #gotowanie #kuchnia #{@recipe.title} - #{recipe_url(@recipe)}"
         flash[:notice] = 'Przepis został dodany!'
         format.html { redirect_to(@recipe) }
         format.xml  { render :xml => @recipe, :status => :created, :location => @recipe }
