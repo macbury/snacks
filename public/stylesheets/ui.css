@@ -11,6 +11,8 @@ body {
 
 h1, h2, h3 { margin: 0; }
 
+img { border: none; }
+
 a { color: #31627E; cursor: pointer; outline: none !important; text-decoration: none; }
 a:visited { color: #105CB6; }
 a:hover, a:focus { color: #FF5917; }
@@ -85,28 +87,6 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 
 /* Buttons */
 
-.special {
-	background-color: #69A74E !important;
-	background-position-x: 0px !important;
-	background-position-y: -96px !important;
-	border-color: #386F24 #236013 #16540A !important;
-	text-shadow: #4D8835 0px 1px 0px !important;
-}
-
-.special:active {
-	background-color: #609946 !important;
-	background-image: none;
-}
-
-.white {
-	background-color: #DDD !important;
-	border-color: #999 !important;
-	background-position-x: 0px !important;
-	background-position-y: 0px !important;
-}
-
-.white > a { color: #333 !important; text-shadow: none !important; }
-
 .button {
 	background: #5B74A8 url('../images/button.png') repeat-x 0px -48px;
 	border: 1px solid #fff;
@@ -142,6 +122,28 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 	width: 16px;
 	height: 16px;
 }
+
+.special {
+	background-color: #69A74E !important;
+	background-position-x: 0px !important;
+	background-position-y: -96px !important;
+	border-color: #386F24 #236013 #16540A !important;
+	text-shadow: #4D8835 0px 1px 0px !important;
+}
+
+.special:active {
+	background-color: #609946 !important;
+	background-image: none;
+}
+
+.white {
+	background-color: #DDD !important;
+	border-color: #999 !important;
+	background-position-x: 0px !important;
+	background-position-y: 0px !important;
+}
+
+.white > a { color: #333 !important; text-shadow: none !important; }
 
 /* Header */
 
