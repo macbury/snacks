@@ -28,7 +28,7 @@
 	
 	<h3>Dodaj do</h3>
 	<div class="share">
-		<% unless self.current_user.favorite?(@recipe) %>
+		<% unless logged_in? && self.current_user.favorite?(@recipe) %>
 		<div class="button white">
 			<%= link_to(image_tag('/images/star_on.gif') + 'ulubionych', [@recipe, Favorite.new], :method => :post) %>
 		</div>

@@ -4,17 +4,41 @@ class RecipesController < ApplicationController
   add_breadcrumb 'Nowy przepis', '', :only => [:create, :new]
   
   before_filter :login_required, :except => [:show, :index, :feed]
-  before_filter :prepare_conditions, :only => [:index, :my, :favorites]
   
   PER_PAGE = 10
   
   # GET /recipes
   # GET /recipes.xml
   def index
-    @recipes = @query.paginate( :select => @select,
-                                :include => [:user, :tags],
+    @query = Recipe.search
+    
+    if params[:ingredients] && !params[:ingredients].empty?
+      @tags = params[:ingredients].split(',').map { |ingredient| ingredient.strip }
+      @query.tags_name_equals(@tags)
+      
+      @select = 'distinct recipes.*, ((Select count(*) FROM taggings WHERE taggings.taggable_id = recipes.id) - count(taggings.taggable_id)) as tag_order'
+      
+      @group = Recipe.group + ' ' + 'HAVING (count(taggings.taggable_id) * 100) / (Select count(*) FROM taggings WHERE taggings.taggable_id = recipes.id) > 50 '
+      
+      add_breadcrumb 'Szukaj według składników'
+    elsif params[:ingredient]
+      add_breadcrumb "Składnik", 'ingredients_path'
+      add_breadcrumb params[:ingredient]
+      @query.tags_name_like_any(params[:ingredient])
+    end
+
+    if params[:sort].nil?
+      @sort_type = @tags.nil? ? 'name' : 'revelance'
+    else
+      @sort_type = params[:sort]
+    end
+    
+    #, 
+    
+    @recipes = @query.paginate( :select => @select, 
                                 :per_page => PER_PAGE, 
                                 :page => params[:page], 
+                                :include => [:tags, :user], 
                                 :group => @group,
                                 :order => get_sort )
 
@@ -148,45 +172,22 @@ class RecipesController < ApplicationController
   end
   
   protected
-    def prepare_conditions
-      @query = Recipe.search
 
-      @group = nil #'recipes.id'
-      @select = 'recipes.*'
-      
-      if params[:ingredients] && !params[:ingredients].empty?
-        @tags = params[:ingredients].split(',').map { |ingredient| ingredient.strip }
-
-        @query.tags_name_like_any(@tags)
-
-        @select = 'recipes.*, count(taggings.taggable_id) AS tag_count,(Select count(*) FROM taggings WHERE taggings.taggable_id = recipes.id) as tag_total'
-
-        @group = 'recipes.id HAVING ROUND(tag_count * 100 / tag_total) >= 50'
-
-        add_breadcrumb 'Szukaj według składników'
-      elsif params[:ingredient]
-        add_breadcrumb "Składnik", 'ingredients_path'
-        add_breadcrumb params[:ingredient]
-        @query.tags_name_like_any(params[:ingredient])
-      end
-
-      if params[:sort].nil?
-        @sort_type = @tags.nil? ? 'name' : 'revelance'
-      else
-        @sort_type = params[:sort]
-      end
-    end
-  
     def get_sort
       sortSQL = String.new
-
-      case params[:sort]
+      
+      sort_by = params[:sort]
+      
+      if sort_by.nil?
+        sort_by = @tags.nil? ? 'name' : 'revelance'
+      end
+      
+      case sort_by
         when 'name' : sortSQL = 'recipes.title ASC'
         when 'rated': sortSQL = 'recipes.favorites_count DESC' 
         when 'date': sortSQL = 'recipes.created_at DESC'
         when 'random': sortSQL = 'RANDOM()'
-        when 'revelance': sortSQL = 'tag_total - count(taggings.taggable_id), tag_count ASC'
-        else sortSQL = @tags.nil? ? 'recipes.title ASC' : 'tag_total - count(taggings.taggable_id), tag_count ASC'
+        when 'revelance': sortSQL = 'tag_order ASC'
       end
 
       return sortSQL
