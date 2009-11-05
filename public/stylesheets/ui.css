@@ -123,7 +123,7 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 	height: 16px;
 }
 
-.special {
+.button.special {
 	background-color: #69A74E !important;
 	background-position-x: 0px !important;
 	background-position-y: -96px !important;
@@ -131,19 +131,19 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 	text-shadow: #4D8835 0px 1px 0px !important;
 }
 
-.special:active {
+.button.special:active {
 	background-color: #609946 !important;
 	background-image: none;
 }
 
-.white {
+.button.white {
 	background-color: #DDD !important;
 	border-color: #999 !important;
 	background-position-x: 0px !important;
 	background-position-y: 0px !important;
 }
 
-.white > a { color: #333 !important; text-shadow: none !important; }
+.button.white > a { color: #333 !important; text-shadow: none !important; }
 
 /* Header */
 
